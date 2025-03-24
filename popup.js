@@ -21,15 +21,26 @@ function saveColor(hex) {
 }
 
 function displayHistory() {
-  const history = JSON.parse(localStorage.getItem("colorHistory") || "[]");
-  historyContainer.innerHTML = "";
-  history.forEach(hex => {
-    const swatch = document.createElement("div");
-    swatch.style.backgroundColor = hex;
-    swatch.className = "swatch";
-    swatch.title = hex;
-    historyContainer.appendChild(swatch);
-  });
-}
+    const history = JSON.parse(localStorage.getItem("colorHistory") || "[]");
+    historyContainer.innerHTML = "";
+    
+    history.forEach(hex => {
+      const swatchWrapper = document.createElement("div");
+      swatchWrapper.className = "swatch-wrapper";
+  
+      const swatch = document.createElement("div");
+      swatch.className = "swatch";
+      swatch.style.backgroundColor = hex;
+      swatch.title = hex;
+  
+      const label = document.createElement("span");
+      label.className = "swatch-label";
+      label.textContent = hex;
+  
+      swatchWrapper.appendChild(swatch);
+      swatchWrapper.appendChild(label);
+      historyContainer.appendChild(swatchWrapper);
+    });
+  }  
 
 document.addEventListener("DOMContentLoaded", displayHistory);
